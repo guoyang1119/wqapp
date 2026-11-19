@@ -1,0 +1,63 @@
+name: Build IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer || \
+          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          xcodebuild -version
+
+      - name: Show sources
+        run: |
+          find . -name "*.m" -o -name "*.h" | head -40
+          ls -la
+
+      - name: Build (unsigned)
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project WQApp.xcodeproj \
+            -scheme WQApp \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath ./build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet \
+            clean build 2>&1 | tail -60
+
+      - name: Package IPA
+        run: |
+          APP=$(find ./build -name "WQApp.app" -type d | head -1)
+          echo "APP=$APP"
+          if [ -z "$APP" ]; then
+            echo "::error::WQApp.app not found"
+            find ./build -maxdepth 4 -type d | head -40
+            exit 1
+          fi
+          mkdir -p Payload
+          cp -R "$APP" Payload/
+          # 检查二进制
+          ls -la Payload/WQApp.app/
+          file Payload/WQApp.app/WQApp
+          zip -r WQApp-unsigned.ipa Payload
+          ls -lh WQApp-unsigned.ipa
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WQApp-unsigned-ipa
+          path: WQApp-unsigned.ipa
+          retention-days: 30

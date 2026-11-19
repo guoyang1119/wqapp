@@ -1,0 +1,240 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001 /* main.m */ = {isa = PBXBuildFile; fileRef = B1000001 /* main.m */; };
+		A1000002 /* AppDelegate.m */ = {isa = PBXBuildFile; fileRef = B1000002 /* AppDelegate.m */; };
+		A1000003 /* ViewController.m */ = {isa = PBXBuildFile; fileRef = B1000003 /* ViewController.m */; };
+		A1000004 /* worse_query.m */ = {isa = PBXBuildFile; fileRef = B1000004 /* worse_query.m */; };
+		A1000005 /* WQScanner.m */ = {isa = PBXBuildFile; fileRef = B1000005 /* WQScanner.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B1000001 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B1000002 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B1000003 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B1000004 /* worse_query.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = worse_query.m; sourceTree = "<group>"; };
+		B1000005 /* WQScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WQScanner.m; sourceTree = "<group>"; };
+		B1000006 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B1000007 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B1000008 /* worse_query.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = worse_query.h; sourceTree = "<group>"; };
+		B1000009 /* WQScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WQScanner.h; sourceTree = "<group>"; };
+		B100000A /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		B100000B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B100000C /* WQApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WQApp.entitlements; sourceTree = "<group>"; };
+		B100000D /* WQApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WQApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C1000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D1000001 = {
+			isa = PBXGroup;
+			children = (
+				D1000002 /* WQApp */,
+				D1000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1000002 /* WQApp */ = {
+			isa = PBXGroup;
+			children = (
+				B100000A /* Config.h */,
+				B1000001 /* main.m */,
+				B1000006 /* AppDelegate.h */,
+				B1000002 /* AppDelegate.m */,
+				B1000007 /* ViewController.h */,
+				B1000003 /* ViewController.m */,
+				B1000008 /* worse_query.h */,
+				B1000004 /* worse_query.m */,
+				B1000009 /* WQScanner.h */,
+				B1000005 /* WQScanner.m */,
+				B100000B /* Info.plist */,
+				B100000C /* WQApp.entitlements */,
+			);
+			path = WQApp;
+			sourceTree = "<group>";
+		};
+		D1000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B100000D /* WQApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E1000001 /* WQApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1000001 /* Build configuration list for PBXNativeTarget "WQApp" */;
+			buildPhases = (
+				G1000001 /* Sources */,
+				C1000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WQApp;
+			productName = WQApp;
+			productReference = B100000D /* WQApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		H1000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E1000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = F1000002 /* Build configuration list for PBXProject "WQApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D1000001;
+			productRefGroup = D1000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1000001 /* WQApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		G1000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001 /* main.m */,
+				A1000002 /* AppDelegate.m */,
+				A1000003 /* ViewController.m */,
+				A1000004 /* worse_query.m */,
+				A1000005 /* WQScanner.m */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		I1000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_ARC = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				ONLY_ACTIVE_ARCH = NO;
+			};
+			name = Debug;
+		};
+		I1000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_ARC = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		I1000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = WQApp/WQApp.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trxstation.wq;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = WQApp/Info.plist;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+			};
+			name = Debug;
+		};
+		I1000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = WQApp/WQApp.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trxstation.wq;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = WQApp/Info.plist;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1000001 /* Build configuration list for PBXNativeTarget "WQApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				I1000003 /* Debug */,
+				I1000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1000002 /* Build configuration list for PBXProject "WQApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				I1000001 /* Debug */,
+				I1000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = H1000001 /* Project object */;
+}
