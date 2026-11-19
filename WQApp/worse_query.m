@@ -1,11 +1,12 @@
 #import "worse_query.h"
 #import <dlfcn.h>
+#include <xpc/xpc.h>
 #import <unistd.h>
 
 // ── containermanager 私有 API 签名 ──
 typedef void *      (*fn_create)(void);
 typedef void        (*fn_set_class)(void *, uint64_t);
-typedef void        (*fn_set_group)(void *, void *);
+typedef void        (*fn_set_group)(void *, xpc_object_t);
 typedef void        (*fn_set_flags)(void *, uint64_t);
 typedef void        (*fn_set_part)(void *, uint64_t);
 typedef void *      (*fn_get_result)(void *, void **);
@@ -86,12 +87,8 @@ int64_t wq_acquire(NSString *target, NSString *group, BOOL altFlags, BOOL create
 
     qClass(q, kClassAppGroup);
 
-    // xpc_string 通过 libxpc C API 构造
-    void *ident = NULL;
-    {
-        extern void *xpc_string_create(const char *);
-        ident = xpc_string_create(group.UTF8String);
-    }
+    // xpc_string_create 来自 <xpc/xpc.h>，返回 xpc_object_t
+    xpc_object_t ident = xpc_string_create(group.UTF8String);
     if (ident) qGroup(q, ident);
 
     qPart(q, kPartCaches);
