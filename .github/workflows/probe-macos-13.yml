@@ -1,0 +1,9 @@
+name: probe-macos-13
+on:
+  workflow_dispatch:
+jobs:
+  t:
+    runs-on: macos-13
+    steps:
+      - name: hi
+        run: echo ok && uname -a || ver
