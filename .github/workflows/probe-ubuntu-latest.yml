@@ -1,0 +1,9 @@
+name: probe-ubuntu-latest
+on:
+  workflow_dispatch:
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - name: hi
+        run: echo ok && uname -a || ver
