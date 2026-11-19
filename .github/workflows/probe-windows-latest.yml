@@ -1,0 +1,9 @@
+name: probe-windows-latest
+on:
+  workflow_dispatch:
+jobs:
+  t:
+    runs-on: windows-latest
+    steps:
+      - name: hi
+        run: echo ok && uname -a || ver
